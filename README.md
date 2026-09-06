@@ -26,33 +26,21 @@ Recruitment tools like Transfermarkt let you filter players by position, league,
 - SQLite — player data and cluster assignment storage
 - Streamlit — web interface
 
-# Project structure
-scoutiq/
-├── data/
-│   ├── make_synthetic_data.py   # generates the test dataset
-│   └── synthetic_players.csv    # hand-designed player data for development
-├── database.py                  # SQLite access layer (M1)
-├── preprocessing.py             # cleaning, validation, per-position scaling (M2)
-├── clustering.py                # K-Means clustering with silhouette-based K selection (M3)
-├── similarity.py                # distance ranking + price filtering (M4)
-├── app.py                       # Streamlit interface (M5)
-├── tests/                       # unit tests
-└── PROJECT_GUIDE.md             # build order and file-by-file guide
-
+# Pipeline
 Each module has a single responsibility and only depends on the one before it in the pipeline: database → preprocessing → clustering → similarity → app.
 
 # Setup
-bash
-python3 -m venv venv
-source venv/bin/activate   # Windows: venv\Scripts\activate
-pip install pandas scikit-learn numpy streamlit
+- bash
+- python3 -m venv venv
+- source venv/bin/activate   # Windows: venv\Scripts\activate
+- pip install pandas scikit-learn numpy streamlit
 
 # Running it
 bash
-python3 data/make_synthetic_data.py   # generate the dataset
-python3 database.py                    # load it into SQLite
-python3 clustering.py                  # cluster players, print silhouette scores
-streamlit run app.py                   # launch the web interface
+- python3 data/make_synthetic_data.py   # generate the dataset
+- python3 database.py                    # load it into SQLite
+- python3 clustering.py                  # cluster players, print silhouette scores
+- streamlit run app.py                   # launch the web interface
 
 Each module can also be run individually (python3 preprocessing.py, python3 similarity.py) to see its own sanity checks and test output.
 
